@@ -8,7 +8,17 @@ function createToken(_id) {
 // CONTROLLER FUNCTIONS
 // login user
 async function loginUser(req,res) {
-    console.log(req.body);
+    const { email, password } = req.body;
+    
+    try {
+        const user = await User.login(email, password);
+
+        // create token
+        const token = createToken();
+        res.status(200).json({email, token});
+    } catch(err) {
+        res.statu(400).json({ error:err.message });
+    }
     res.json({ msg: 'Login user' });
 }
 
