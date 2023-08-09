@@ -16,7 +16,7 @@ const userSchema = new Schema({
     }
 });
 
-// static method on the schema
+// STATIC METHOD for signup
 userSchema.statics.signup = async function(email, password) {
 
     // email and password validation
@@ -41,6 +41,26 @@ userSchema.statics.signup = async function(email, password) {
 
     const user = await this.create({ email, password:hash });
     
+    return user;
+}
+
+// STATIC METHOD for login
+userSchema.statics.login = async function(email,password) {
+
+    if(!email || !password) {
+        throw Error('Please fill all the fields');
+    }
+
+    const user = await this.findOne({ email });
+    if(!user) {
+        throw Error('The email is incorrect!');
+    }
+
+    const match = await bcrypt.compare(password,user.password);
+
+    if(!match) {
+        throw Error('Password is incorrect!');
+    }
     return user;
 }
 
