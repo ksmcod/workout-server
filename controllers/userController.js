@@ -15,11 +15,10 @@ async function loginUser(req,res) {
 
         // create token
         const token = createToken();
-        res.status(200).json({email, token});
+        res.status(200).json({user, token});
     } catch(err) {
         res.statu(400).json({ error:err.message });
     }
-    res.json({ msg: 'Login user' });
 }
 
 // signup user
