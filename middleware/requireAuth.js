@@ -13,7 +13,6 @@ async function requireAuth(req,res,next) {
     
     try {
         const {_id}  = jwt.verify(token,process.env.SECRET);
-        console.log('ID: ',_id)
         req.user = await User.findById({ _id }).select('_id');
         next();
         

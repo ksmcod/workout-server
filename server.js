@@ -13,10 +13,10 @@ const app = express();
 // middleware
 app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-    console.log( req.method, req.path);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log( req.method, req.path);
+//     next();
+// });
 
 // routes
 app.use('/api/workouts',workoutRoutes);
