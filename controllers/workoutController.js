@@ -28,9 +28,10 @@ async function getWorkout(req,res) {
 // CREATE a new workout
 async function createWorkout(req,res) {
     const { title, reps, load } = req.body;
+    const user_id = req.user._id;
 
     try{
-        const workout = await Workout.create({ title, reps, load });
+        const workout = await Workout.create({ title, reps, load,user_id });
         res.status(200).json(workout);
     } catch(err) {
         res.status(400).json({ error: err.message });
